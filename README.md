@@ -3,6 +3,7 @@
 1. Using Trigger Framework by [Kevin O'Hara](https://github.com/kevinohara80/sfdc-trigger-framework)
 2. Using lighting Components by [lightningstrike](https://github.com/appiphony/Strike-Components)
 3. Using Connected Api helper class by [forcedotcom](https://github.com/forcedotcom/ConnectApiHelper)
+4. Using Git Actions to deploy inspired by [Salto](https://github.com/salto-io/salesforce-ci-cd-org-dev)
 
 # Overview
 
@@ -49,4 +50,38 @@ Basic Code Structure for any project
 
    a.createFeedItemInputFromBody(): add's text to exsisitng chatter message
 
-### Package Development Model
+
+
+# Git deployment
+
+## PR 
+1. Create a new PR with related components to deploy
+2. On Create of PR,package check will occurs with production org
+
+### Specify Test class to run as comma separated values in pr
+
+    Apex::[LogTest]::Apex
+
+### Specify all as value to run all local tests
+
+    Apex::[all]::Apex
+
+## Push to master
+1. On push comment add "[Deploy]" in comment to mark it as deployment 
+2. in case summary add Apex::[T]::Apex to run specific class during deployment
+
+
+3. on successfully merge it will be deployed to production org
+
+
+
+### Note
+add git secrete variable
+
+SFDX_PRODUCTION_URL
+
+and value of it copy from running command
+
+`sfdx force:org:display --targetusername <orgname> --verbose`
+
+and copy Sfdx Auth Url
